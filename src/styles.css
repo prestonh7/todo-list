@@ -1,3 +1,32 @@
+:root {
+    /* Main Colors */
+        --bg-color: #1f1f1f;
+        --text-color: #f2f2f2;
+        --accent-color: #6f42c1;
+    
+        /* Shades of Gray */
+        --gray-100: #f8f9fa;
+        --gray-200: #e9ecef;
+        --gray-300: #dee2e6;
+        --gray-400: #ced4da;
+        --gray-500: #adb5bd;
+        --gray-600: #6c757d;
+        --gray-700: #495057;
+        --gray-800: #343a40;
+        --gray-900: #212529;
+    
+        /* Accent Colors */
+        --purple-100: #f3e8ff;
+        --purple-200: #dda3ff;
+        --purple-300: #c671ff;
+        --purple-400: #a940ff;
+        --purple-500: #8833dd;
+        --purple-600: #6f42c1;
+        --purple-700: #5a32a3;
+        --purple-800: #472c82;
+        --purple-900: #352160;
+}
+
 body {
-    background-color: gray;
+    background-color: var(--bg-color);
 }
