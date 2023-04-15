@@ -25,13 +25,15 @@
   --purple-700: #5a32a3;
   --purple-800: #472c82;
   --purple-900: #352160;
+
+  --header-height: 0px;
 }
 
 body {
   margin: 0;
   background-color: var(--bg-color);
   display: grid;
-  grid-template: 1fr 7fr / 3fr 7fr;
+  grid-template: 1fr 5fr / 20vw 7fr;
 }
 
 header {
@@ -42,10 +44,11 @@ header {
 .sidebar {
   background-color: var(--gray-800);
   position: fixed;
-  top: 80px; /* replace with the height of your header */
+  top: var(--header-height);
   bottom: 0;
   left: 0;
   height: 100%;
+  width: 20vw;
 }
 
 .sidebar ul {
@@ -66,6 +69,9 @@ img {
   background-color: var(--gray-800);
   border: none;
   cursor: pointer;
+  display: flex;
+  width: 80%;
+  align-items: center;
 }
 
 .sidebar button:hover {
