@@ -6,7 +6,7 @@ import "/images/today.svg";
 import "/images/calendar_month.svg";
 
 const sideBar = (() => {
-  const headerHeight = document.querySelector("header").offsetHeight;
-  const sidebar = document.querySelector(".sidebar");
-  sidebar.style.top = headerHeight + "px";
+    const header = document.querySelector('header');
+    const headerHeight = getComputedStyle(header).getPropertyValue('height');
+    document.documentElement.style.setProperty('--header-height', headerHeight);
 })();
