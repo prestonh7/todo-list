@@ -7,11 +7,24 @@
     <title>Todo List</title>
   </head>
   <body>
-    <script src="./index.js" defer></script>
+    <script src="./src/index.js"></script>
     <header>
-      <a href="" class="menu"><img src="./images/menu.svg" alt="Menu" /></a>
-      <a href=""><img src="./images/home.svg" alt="Home" /></a>
+      <button id="menuBtn"><img src="./images/menu.svg" alt="Menu" /></button>
+      <button id="homeBtn"><img src="./images/home.svg" alt="Home" /></button>
+      <button id="addTaskBtn"><img src="./images/add.svg" alt="Add"></button>
     </header>
+
+  <div id="popup">
+    <form>
+      <h2>Add Task</h2>
+      <label for="task">Task:</label>
+      <input type="text" id="task" name="task">
+      <label for="deadline">Deadline:</label>
+      <input type="date" id="deadline" name="deadline">
+      <button type="submit" id="submitTaskBtn">Submit</button>
+      <button type="button" id="cancelTaskBtn">Cancel</button>
+    </form>
+  </div>
 
     <div class="sidebar">
       <ul>
