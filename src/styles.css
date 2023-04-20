@@ -26,7 +26,7 @@
   --purple-800: #472c82;
   --purple-900: #352160;
 
-  --header-height: 0px;
+  --header-height: 40.7969px;
 }
 
 body {
@@ -65,16 +65,46 @@ img {
   width: 2.3em;
 }
 
-.sidebar button {
-  background-color: var(--gray-800);
+.sidebar button, header button {
+  background: none;
   border: none;
   cursor: pointer;
+}
+
+.sidebar button {
   display: flex;
   width: 80%;
   align-items: center;
 }
 
+header button:hover {
+  background-color: var(--gray-800);
+  border-radius: .4em;
+}
+
 .sidebar button:hover {
   background-color: var(--gray-900);
   border-radius: 0.4em;
+}
+
+#popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background-color: white;
+  border: 1px solid black;
+  padding: 20px;
+  text-align: center;
+}
+
+#popup form {
+  display: flex;
+  flex-direction: column;
+}
+
+#popup.open {
+  display: block;
 }
