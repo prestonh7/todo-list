@@ -12,11 +12,39 @@ const sideBar = (() => {
     document.documentElement.style.setProperty('--header-height', headerHeight);
 })();
 
-const addTask = (() => {
+const addTaskPopup = (() => {
     const addTaskBtn = document.querySelector('#addTaskBtn');
     const popup = document.querySelector('#popup');
+    const form = document.querySelector('#addTaskForm');
+    const cancelBtn = document.querySelector("#cancelTaskBtn");
 
     addTaskBtn.addEventListener('click', () => {
         popup.classList.toggle('open');
-    })
+    });
+
+    form.addEventListener('submit', () => {
+        const task = form.querySelector('#task').value;
+        const deadline = form.querySelector('#deadline').value;
+        const todo = new Task(task, deadline);
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        form.reset();
+        popup.classList.toggle('open');
+    });
 })();
+
+class Task {
+    constructor(task, deadline) {
+        this.task = task;
+        this.deadline = deadline;
+    }
+
+    addToList(list) {
+        list.push(this);
+    }
+
+    removeFromList(list) {
+        list.splice(this);
+    }
+}
