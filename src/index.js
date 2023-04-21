@@ -12,6 +12,42 @@ const sideBar = (() => {
     document.documentElement.style.setProperty('--header-height', headerHeight);
 })();
 
+const taskListHandler = (() => {
+    let tasks = [];
+
+    function addTask(task) {
+        tasks.push(task);
+    }
+
+    return { tasks , addTask }
+});
+
+const displayController = (() => {
+    const container = document.querySelector('.content');
+
+    function updateList() {
+        tasks.forEach((todo, index) => {
+            const div = document.createElement('div');
+            const taskName = document.createElement('h4');
+            const deadlineDate = document.createElement('p');
+            const completedBox = document.createElement('input');
+            completed.setAttribute('type', 'checkbox');
+
+            taskName.textContent = todo.task;
+            deadlineDate.textContent = todo.deadline;
+            completedBox.checked = task.completed;
+
+            div.appendChild(taskName);
+            div.appendChild(deadlineDate);
+            div.appendChild(completedBox);
+
+            container.appendChild(div);
+        });
+    }
+
+    return { updateList }
+});
+
 const addTaskPopup = (() => {
     const addTaskBtn = document.querySelector('#addTaskBtn');
     const popup = document.querySelector('#popup');
@@ -35,9 +71,10 @@ const addTaskPopup = (() => {
 })();
 
 class Task {
-    constructor(task, deadline) {
+    constructor(task, deadline, completed = false) {
         this.task = task;
         this.deadline = deadline;
+        this.completed;
     }
 
     addToList(list) {
