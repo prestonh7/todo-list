@@ -37,10 +37,11 @@ const displayController = (() => {
             deadlineDate.textContent = todo.deadline;
             completedBox.checked = task.completed;
 
+            div.appendChild(completedBox);
             div.appendChild(taskName);
             div.appendChild(deadlineDate);
-            div.appendChild(completedBox);
             div.classList.add('taskItem');
+            deadlineDate.classList.add('deadlineDate');
 
             container.appendChild(div);
         });
@@ -93,7 +94,5 @@ const display = displayController();
 const task1 = new Task('Task 1', '12/24/1997');
 
 taskList.addTask(task1);
-
-console.log(taskList.tasks)
 
 display.drawListToScreen();
