@@ -25,13 +25,13 @@ const taskListHandler = (() => {
 const displayController = (() => {
     const container = document.querySelector('.content');
 
-    function updateList() {
-        tasks.forEach((todo, index) => {
+    function drawListToScreen() {
+        taskList.tasks.forEach((todo, index) => {
             const div = document.createElement('div');
             const taskName = document.createElement('h4');
             const deadlineDate = document.createElement('p');
             const completedBox = document.createElement('input');
-            completed.setAttribute('type', 'checkbox');
+            completedBox.setAttribute('type', 'checkbox');
 
             taskName.textContent = todo.task;
             deadlineDate.textContent = todo.deadline;
@@ -40,12 +40,13 @@ const displayController = (() => {
             div.appendChild(taskName);
             div.appendChild(deadlineDate);
             div.appendChild(completedBox);
+            div.classList.add('taskItem');
 
             container.appendChild(div);
         });
     }
 
-    return { updateList }
+    return { drawListToScreen }
 });
 
 const addTaskPopup = (() => {
@@ -85,3 +86,14 @@ class Task {
         list.splice(this);
     }
 }
+
+const taskList = taskListHandler();
+const display = displayController();
+
+const task1 = new Task('Task 1', '12/24/1997');
+
+taskList.addTask(task1);
+
+console.log(taskList.tasks)
+
+display.drawListToScreen();
