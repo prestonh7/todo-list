@@ -20,7 +20,7 @@ body {
   margin: 0;
   background-color: var(--bg-color);
   display: grid;
-  grid-template: 1fr 5fr / 20vw 7fr;
+  grid-template-columns: 20vw 7fr;
   grid-template-areas: 
     "header header"
     "sidebar content";
