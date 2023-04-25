@@ -14,18 +14,21 @@ const sideBar = (() => {
 
 const taskListHandler = (() => {
     let tasks = [];
+    let orderedTasks = [];
+    const today = new Date();
 
     function addTask(task) {
         tasks.push(task);
     }
 
-    return { tasks , addTask }
+    return { tasks , orderedTasks ,addTask }
 });
 
 const displayController = (() => {
     const container = document.querySelector('.content');
+    const today = new Date().toLocaleDateString();
 
-    function drawListToScreen() {
+    function drawListToScreen(filter) {
         container.innerText = '';
         taskList.tasks.forEach((todo, index) => {
             const div = document.createElement('div');
@@ -44,7 +47,14 @@ const displayController = (() => {
             div.classList.add('taskItem');
             deadlineDate.classList.add('deadlineDate');
 
-            container.appendChild(div);
+            if(filter === 'today') {
+                if(todo.deadline === today) {
+                    container.appendChild(div);
+                }
+            } else if(filter === 'inbox') {
+                container.appendChild(div);
+            }
+
         });
     }
 
@@ -81,7 +91,7 @@ const addTaskPopup = (() => {
 class Task {
     constructor(task, deadline, completed = false) {
         this.task = task;
-        this.deadline = deadline;
+        this.deadline = new Date(deadline);
         this.completed;
     }
 }
@@ -91,7 +101,15 @@ const display = displayController();
 const popup = addTaskPopup();
 
 const task1 = new Task('Task 1', '12-24-1997');
+const task2 = new Task('Task 2', '12-24-1996');
+const task3 = new Task('Task 3', '12-24-2000');
+const task4 = new Task('Task 4', '12-24-2021');
+const task5 = new Task('Task 5', '04-25-2023');
 
 taskList.addTask(task1);
+taskList.addTask(task2);
+taskList.addTask(task3);
+taskList.addTask(task4);
+taskList.addTask(task5);
 
-display.drawListToScreen();
+display.drawListToScreen('inbox');
