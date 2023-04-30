@@ -5,7 +5,7 @@ import "/images/inbox.svg";
 import "/images/today.svg";
 import "/images/calendar_month.svg";
 import "/images/add.svg"
-import { format, isToday } from 'date-fns'
+import { format, isToday, isWithinInterval, addDays } from 'date-fns'
 
 const sideBar = (() => {
     const header = document.querySelector('header');
@@ -77,6 +77,12 @@ const displayController = (() => {
                 }
             } else if(filter === 'Inbox') {
                 container.appendChild(div);
+            } else if(filter === 'Upcoming') {
+                const startDate = new Date();
+                const endDate = addDays(startDate, 7);
+                if(isWithinInterval(new Date(todo.deadline), { start: startDate, end: endDate })) {
+                    container.appendChild(div);
+                }
             }
 
         });
@@ -103,7 +109,7 @@ const addTaskPopup = (() => {
         taskList.addTask(todo);
         form.reset();
         popup.classList.toggle('open');
-        display.drawListToScreen(display.searchSelection);
+        display.drawListToScreen('Inbox');
     });
 
     cancelBtn.addEventListener('click', () => {
@@ -117,16 +123,7 @@ class Task {
         this.task = task;
         this.deadline = new Date(deadline);
         this.completed;
-        // this.utcDate = this.convertToUTC(deadline);
     }
-
-    // convertToUTC(userLocalTime) {
-    //     const localDate = new Date(userLocalTime);
-    //     const timezoneOffsetMs = localDate.getTimezoneOffset() * 60 * 1000;
-    //     const utcDate = new Date(localDate.getTime() - timezoneOffsetMs);
-    //     const formattedUtcDate = format(utcDate, 'yyyy-MM-dd HH:mm:ss');
-    //     return formattedUtcDate;
-    // }
 }
 
 const taskList = taskListHandler();
