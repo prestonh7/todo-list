@@ -80,6 +80,11 @@ header button:hover {
   border-radius: 0.4em;
 }
 
+button.selected {
+  background-color: var(--sidebar-color-hover);
+  border-radius: .4em;
+}
+
 #popup {
   background-color: var(--popup-color);
   color: var(--dark-text);

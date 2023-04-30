@@ -25,12 +25,19 @@ const taskListHandler = (() => {
 
 const displayController = (() => {
     let searchSelection = 'inbox';
+    let selectedButton = null;
 
     const container = document.querySelector('.content');
     const buttons = document.querySelectorAll('.sidebar button');
 
     buttons.forEach(button => {
         button.addEventListener('click', () => {
+        if (selectedButton) {
+            selectedButton.classList.remove('selected');
+        }
+        button.classList.add('selected');
+        selectedButton = button;
+
         const buttonName = button.textContent.trim();
         searchSelection = buttonName;
         drawListToScreen(searchSelection);
