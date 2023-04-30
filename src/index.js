@@ -5,6 +5,7 @@ import "/images/inbox.svg";
 import "/images/today.svg";
 import "/images/calendar_month.svg";
 import "/images/add.svg"
+import { format, isToday } from 'date-fns'
 
 const sideBar = (() => {
     const header = document.querySelector('header');
@@ -14,19 +15,28 @@ const sideBar = (() => {
 
 const taskListHandler = (() => {
     let tasks = [];
-    let orderedTasks = [];
-    const today = new Date();
 
     function addTask(task) {
         tasks.push(task);
     }
 
-    return { tasks , orderedTasks ,addTask }
+    return { tasks , addTask }
 });
 
 const displayController = (() => {
+    let searchSelection = 'inbox';
+
     const container = document.querySelector('.content');
-    const today = new Date().toLocaleDateString();
+    const buttons = document.querySelectorAll('.sidebar button');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+        const buttonName = button.textContent.trim();
+        searchSelection = buttonName;
+        drawListToScreen(searchSelection);
+        console.log(searchSelection);
+        });
+    });
 
     function drawListToScreen(filter) {
         container.innerText = '';
@@ -38,7 +48,7 @@ const displayController = (() => {
             completedBox.setAttribute('type', 'checkbox');
 
             taskName.textContent = todo.task;
-            deadlineDate.textContent = todo.deadline;
+            deadlineDate.textContent = format(todo.deadline, 'MM/dd/yyyy');
             completedBox.checked = task.completed;
 
             div.appendChild(completedBox);
@@ -46,19 +56,20 @@ const displayController = (() => {
             div.appendChild(deadlineDate);
             div.classList.add('taskItem');
             deadlineDate.classList.add('deadlineDate');
+            console.log(todo)
 
-            if(filter === 'today') {
-                if(todo.deadline === today) {
+            if(filter === 'Today') {
+                if(isToday(new Date(todo.deadline))) {
                     container.appendChild(div);
                 }
-            } else if(filter === 'inbox') {
+            } else if(filter === 'Inbox') {
                 container.appendChild(div);
             }
 
         });
     }
 
-    return { drawListToScreen }
+    return { drawListToScreen , searchSelection }
 });
 
 const addTaskPopup = (() => {
@@ -79,7 +90,7 @@ const addTaskPopup = (() => {
         taskList.addTask(todo);
         form.reset();
         popup.classList.toggle('open');
-        display.drawListToScreen();
+        display.drawListToScreen(display.searchSelection);
     });
 
     cancelBtn.addEventListener('click', () => {
@@ -93,18 +104,27 @@ class Task {
         this.task = task;
         this.deadline = new Date(deadline);
         this.completed;
+        // this.utcDate = this.convertToUTC(deadline);
     }
+
+    // convertToUTC(userLocalTime) {
+    //     const localDate = new Date(userLocalTime);
+    //     const timezoneOffsetMs = localDate.getTimezoneOffset() * 60 * 1000;
+    //     const utcDate = new Date(localDate.getTime() - timezoneOffsetMs);
+    //     const formattedUtcDate = format(utcDate, 'yyyy-MM-dd HH:mm:ss');
+    //     return formattedUtcDate;
+    // }
 }
 
 const taskList = taskListHandler();
 const display = displayController();
 const popup = addTaskPopup();
 
-const task1 = new Task('Task 1', '12-24-1997');
-const task2 = new Task('Task 2', '12-24-1996');
-const task3 = new Task('Task 3', '12-24-2000');
-const task4 = new Task('Task 4', '12-24-2021');
-const task5 = new Task('Task 5', '04-25-2023');
+const task1 = new Task('Task 1', '5-14-2023');
+const task2 = new Task('Task 2', '1-01-2022');
+const task3 = new Task('Task 3', '07-20-2000');
+const task4 = new Task('Task 4', '05-24-2024');
+const task5 = new Task('Task 5', '04-30-2023');
 
 taskList.addTask(task1);
 taskList.addTask(task2);
