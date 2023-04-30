@@ -30,6 +30,12 @@ const displayController = (() => {
     const container = document.querySelector('.content');
     const buttons = document.querySelectorAll('.sidebar button');
 
+    window.addEventListener('load', () => {
+        const inboxButton = buttons[0];
+        inboxButton.classList.add('selected');
+        selectedButton = inboxButton;
+    });
+
     buttons.forEach(button => {
         button.addEventListener('click', () => {
         if (selectedButton) {
@@ -139,4 +145,4 @@ taskList.addTask(task3);
 taskList.addTask(task4);
 taskList.addTask(task5);
 
-display.drawListToScreen('inbox');
+display.drawListToScreen('Inbox');
