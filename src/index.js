@@ -11,6 +11,32 @@ const sideBar = (() => {
     const header = document.querySelector('header');
     const headerHeight = getComputedStyle(header).getPropertyValue('height');
     document.documentElement.style.setProperty('--header-height', headerHeight);
+
+    let openBar = true;
+    const menuBtn = document.querySelector('#menuBtn');
+    const buttons = document.querySelectorAll('.sidebar button .btn-text');
+    const body = document.querySelector('body');
+    const sidebar = document.querySelector('.sidebar');
+    const leftPadding = document.querySelector('.sidebar ul');
+    menuBtn.addEventListener('click', () => {
+        if(openBar) {
+            buttons.forEach(button => {
+            button.style.fontSize = '0';
+            });
+            openBar = false;
+            body.style.gridTemplateColumns = '3.3vw 7fr';
+            sidebar.style.width = '3.3vw';
+            leftPadding.style.paddingInlineStart = '0px'
+        } else { 
+            buttons.forEach(button => {
+                button.style.fontSize = '13px';
+            });
+            openBar = true;
+            body.style.gridTemplateColumns = '20vw 7fr';
+            sidebar.style.width = '20vw';
+            leftPadding.style.paddingInlineStart = '40px';
+        }
+    });
 })();
 
 const taskListHandler = (() => {
